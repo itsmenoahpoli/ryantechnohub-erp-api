@@ -21,6 +21,8 @@ use App\Http\Controllers\Api\Core\Products\ProductImagesController;
 use App\Http\Controllers\Api\Core\Stores\StoresController;
 use App\Http\Controllers\Api\Core\Stores\StorePosController;
 
+use App\Http\Controllers\Api\Core\Accountings\AccountRemindersController;
+
 
 /**
  * API for warehouse dashboard & stocks portal
@@ -38,10 +40,12 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
     /**
      * Modules
      */
+
+     
+    /**
+     * Products
+     */
     Route::prefix('products')->group(function() {
-        /**
-         * Products
-         */
         Route::apiResource('categories', ProductCategoriesController::class);
         Route::prefix('images')->group(function() {
             Route::post('upload', [ProductImagesController::class, 'upload']);
@@ -52,15 +56,19 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
         });
     });
 
+    /**
+     * Stores/Store-Branches
+     */
     Route::prefix('stores')->group(function() {
-        /**
-         * Stores/Store-Branches
-         */
         Route::apiResource('', StoresController::class);
         Route::prefix('pos')->group(function() {
             Route::apiResource('', StorePosController::class); 
             Route::post('authenticate', [StorePosController::class, 'authenticate']);
         });
+    });
+
+    Route::prefix('accountings')->group(function() {
+        Route::apiResource('account-reminders', AccountRemindersController::class);
     });
 });
 

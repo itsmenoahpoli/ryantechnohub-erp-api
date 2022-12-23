@@ -12,7 +12,7 @@ class StoresRepository implements IStoresRepository
 {
     public function getStores($params)
     {
-        return Store::orderBy('created_at', 'desc')->get();
+        return Store::orderBy('id', 'desc')->get();
     }
 
     public function getStore($storeId)

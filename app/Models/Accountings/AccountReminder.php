@@ -12,6 +12,6 @@ class AccountReminder extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'reminder_date' => 'datetime'
+        'reminder_date' => 'date'
     ];
 }

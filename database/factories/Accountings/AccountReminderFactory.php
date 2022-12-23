@@ -16,8 +16,14 @@ class AccountReminderFactory extends Factory
      */
     public function definition()
     {
+        $types = ['receivables', 'payables', 'monthly-expenses'];
+
         return [
-            //
+            'type' => $types[rand(0, 2)],
+            'title' => $this->faker->words(rand(2,4), true),
+            'amount' => rand(850, 7250),
+            'remarks' => $this->faker->sentence(),
+            'reminder_date' => $this->faker->date('Y-m-d')
         ];
     }
 }

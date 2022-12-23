@@ -9,7 +9,7 @@ class ProductCategoriesRepository implements IProductCategoriesRepository
 {
     public function getCategories($params)
     {
-        return Category::orderBy('created_at', 'DESC')->get();
+        return Category::orderBy('id', 'DESC')->get();
     }
 
     public function getCategory($categoryId)

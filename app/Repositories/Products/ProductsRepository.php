@@ -25,14 +25,14 @@ class ProductsRepository implements IProductsRepository
 
 	public function getProducts($params)
 	{
-        return Product::orderBy('created_at', 'DESC')->get();
+    return Product::orderBy('id', 'DESC')->get();
 	}
 
-    public function getProduct($productId)
-    {
+	public function getProduct($productId)
+	{
 		$product = Product::findOrFail($productId);
 		return $product;
-    }
+	}
 
 	public function createProduct($data)
 	{
