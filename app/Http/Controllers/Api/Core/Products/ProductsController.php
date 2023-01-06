@@ -34,7 +34,7 @@ class ProductsController extends Controller
             return response()->json($data, $data === 'OUTSTOCKED_PRODUCT' ? 200 : 400);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -46,7 +46,7 @@ class ProductsController extends Controller
             return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -55,14 +55,17 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : JsonResponse
+    public function index(Request $request) : JsonResponse
     {
         try
         {
+            $params = $request->query();
+            $data = $this->repository->getProducts($params);
 
+            return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -79,7 +82,7 @@ class ProductsController extends Controller
 
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -96,7 +99,7 @@ class ProductsController extends Controller
 
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -114,7 +117,7 @@ class ProductsController extends Controller
 
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -131,7 +134,7 @@ class ProductsController extends Controller
 
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 }

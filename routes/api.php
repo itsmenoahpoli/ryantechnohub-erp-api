@@ -38,26 +38,29 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
     });
 
     /**
-     * Modules
+     * Modules ----------------------------------------------------------------------------------------------- //
      */
 
      
     /**
-     * Products
+     * Inventories
      */
-    Route::prefix('products')->group(function() {
-        Route::apiResource('categories', ProductCategoriesController::class);
-        Route::prefix('images')->group(function() {
-            Route::post('upload', [ProductImagesController::class, 'upload']);
-        });
-        Route::prefix('stocks')->group(function() {
-            Route::post('outstock', [ProductsController::class, 'outstock']);
-            Route::post('batch-outstock', [ProductsController::class, 'batchOutstock']);
+    Route::prefix('inventories')->group(function() {
+        Route::prefix('products')->group(function() {
+            Route::apiResource('', ProductsController::class);
+            Route::apiResource('categories', ProductCategoriesController::class);
+            Route::prefix('images')->group(function() {
+                Route::post('upload', [ProductImagesController::class, 'upload']);
+            });
+            Route::prefix('stocks')->group(function() {
+                Route::post('outstock', [ProductsController::class, 'outstock']);
+                Route::post('batch-outstock', [ProductsController::class, 'batchOutstock']);
+            });
         });
     });
 
     /**
-     * Stores/Store-Branches
+     * Stores/Store-Branches/Store-POS (Back Office)
      */
     Route::prefix('stores')->group(function() {
         Route::apiResource('', StoresController::class);
@@ -73,11 +76,21 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
 });
 
 /**
- * API for deployed store Point-Of-Sale
+ * API for Store-Branches/Store-POS (Deployed)
  */
 Route::prefix('app')->group(function() {
+    /**
+     * Store POS actions (checkout order, void order, order history, etc ...)
+     */
     Route::prefix('store')->group(function() {
         Route::get('{storeNo}/profile', [StoreController::class, 'profile']);
+    });
+    
+    /**
+     * ERP Portal for deployed store POS
+     */
+    Route::prefix('portal')->group(function() {
+        //
     });
 });
 

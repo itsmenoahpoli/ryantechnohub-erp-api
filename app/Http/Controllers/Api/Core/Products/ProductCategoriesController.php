@@ -35,7 +35,7 @@ class ProductCategoriesController extends Controller
             return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -54,7 +54,7 @@ class ProductCategoriesController extends Controller
             return response()->json($data, 201);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -73,7 +73,7 @@ class ProductCategoriesController extends Controller
             return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -93,7 +93,7 @@ class ProductCategoriesController extends Controller
             return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -112,7 +112,7 @@ class ProductCategoriesController extends Controller
             return response()->json($data, 204);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 }

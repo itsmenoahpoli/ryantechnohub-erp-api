@@ -25,7 +25,9 @@ class ProductsRepository implements IProductsRepository
 
 	public function getProducts($params)
 	{
-    return Product::orderBy('id', 'DESC')->get();
+		$products = Product::query()->with(['categories']);
+
+    return $products->orderBy('id', 'DESC')->get();
 	}
 
 	public function getProduct($productId)

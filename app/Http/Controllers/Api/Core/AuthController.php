@@ -33,7 +33,7 @@ class AuthController extends Controller
         }
         catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -46,7 +46,7 @@ class AuthController extends Controller
             return response()->json($data, 200);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -59,7 +59,7 @@ class AuthController extends Controller
             return response()->json($data, $data === 'OTP_CREATED' ? 200 : 400);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -72,7 +72,7 @@ class AuthController extends Controller
             return response()->json($data, $data === 'VALID_CODE' ? 200 : 400);
         } catch (Exception $e)
         {
-            return response()->json($e->getMessage(), 500);
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
         }
     }
 }

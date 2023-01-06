@@ -5,7 +5,7 @@ namespace App\Repositories\Interfaces;
 interface IAccountRemindersRepository
 {
     public function getAccountReminders($params);
-    public function createAccountReminders($data);
-    public function updateAccountReminders($accountReminderId, $data);
-    public function deleteAccountReminders($accountReminderId);
+    public function createAccountReminder($data);
+    public function updateAccountReminder($accountReminderId, $data);
+    public function deleteAccountReminder($accountReminderId);
 }
