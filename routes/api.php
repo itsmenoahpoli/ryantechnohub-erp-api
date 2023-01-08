@@ -53,6 +53,7 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
                 Route::get('', [ProductImagesController::class, 'index']);
                 Route::post('upload', [ProductImagesController::class, 'upload']);
                 Route::delete('{id}/delete', [ProductImagesController::class, 'destroy']);
+                Route::delete('delete-multiple', [ProductImagesController::class, 'destroyMultiple']);
             });
             Route::prefix('stocks')->group(function() {
                 Route::post('outstock', [ProductsController::class, 'outstock']);

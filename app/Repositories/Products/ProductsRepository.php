@@ -58,7 +58,7 @@ class ProductsRepository implements IProductsRepository
 		return $productImages->orderBy('product_id', 'DESC')->get();
 	}
 
-	public function uploadImage($productId, $images)
+	public function uploadProductImage($productId, $images)
 	{
 		$sku = $this->getProduct($productId)->sku;
 		$image_urls = [];
@@ -82,6 +82,18 @@ class ProductsRepository implements IProductsRepository
 
 		return $image_urls;
 	}
+
+    public function deleteProductImage($imageId)
+    {
+        $productImage = ProductImage::findOrFail($imageId)->forceDelete();
+        return $productImage;
+    }
+
+    public function deleteMultipleProductImages($imageIds)
+    {
+        $productImages = ProductImage::whereIn('id', $imageIds)->forceDelete();
+        return $productImages;
+    }
 
 	public function instockProduct($data)
 	{

@@ -49,7 +49,7 @@ class ProductImagesController extends Controller
     {
         try
         {
-            $data = $this->repository->uploadImage($request->product_id, $request->images);
+            $data = $this->repository->uploadProductImage($request->product_id, $request->images);
             return response()->json($data, 201);
         } catch (Exception $e)
         {
@@ -67,7 +67,25 @@ class ProductImagesController extends Controller
     {
         try
         {
-            $data = $this->repository->deleteImage($id);
+            $data = $this->repository->deleteProductImage($id);
+            return response()->json($data, 204);
+        } catch (Exception $e)
+        {
+            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+     /**
+     * Remove the specified product images in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyMultiple(Request $request) : JsonResponse
+    {
+        try
+        {
+            $data = $this->repository->deleteMultipleProductImages($request->productImageIds);
             return response()->json($data, 204);
         } catch (Exception $e)
         {
