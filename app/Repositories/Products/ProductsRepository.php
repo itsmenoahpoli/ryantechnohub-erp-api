@@ -37,19 +37,19 @@ class ProductsRepository implements IProductsRepository
 
 	public function createProduct($data)
 	{
-
+        $product = Product::create($data);
 	}
 
 	public function updateProduct($productId, $data)
 	{
 		$product = $ths->getProduct($productId)->update($data);
-
 		return $this->getProduct($productId);
 	}
 
 	public function deleteProduct($productId)
 	{
-
+        $product = $this->getProduct($productId)->forceDelete();
+        return $product;
 	}
 
 	public function getProductsImages($params)
