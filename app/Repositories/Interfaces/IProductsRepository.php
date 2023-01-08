@@ -9,6 +9,7 @@ interface IProductsRepository
     public function createProduct($data);
     public function updateProduct($productId, $data);
     public function deleteProduct($productId);
+    public function getProductsImages($params);
     public function uploadImage($productId, $images);
     public function instockProduct($data);
     public function outstockProduct($data);

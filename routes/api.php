@@ -30,7 +30,7 @@ use App\Http\Controllers\Api\Core\Accountings\AccountRemindersController;
 Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
     Route::prefix('auth')->group(function() {
         Route::post('login', [AuthController::class, 'login']);
-        
+
         Route::prefix('otp')->group(function() {
             Route::post('request', [AuthController::class, 'requestOtp']);
             Route::post('verify', [AuthController::class, 'verifyOtp']);
@@ -41,7 +41,7 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
      * Modules ----------------------------------------------------------------------------------------------- //
      */
 
-     
+
     /**
      * Inventories
      */
@@ -50,7 +50,9 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
             Route::apiResource('', ProductsController::class);
             Route::apiResource('categories', ProductCategoriesController::class);
             Route::prefix('images')->group(function() {
+                Route::get('', [ProductImagesController::class, 'index']);
                 Route::post('upload', [ProductImagesController::class, 'upload']);
+                Route::delete('{id}/delete', [ProductImagesController::class, 'destroy']);
             });
             Route::prefix('stocks')->group(function() {
                 Route::post('outstock', [ProductsController::class, 'outstock']);
@@ -65,7 +67,7 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
     Route::prefix('stores')->group(function() {
         Route::apiResource('', StoresController::class);
         Route::prefix('pos')->group(function() {
-            Route::apiResource('', StorePosController::class); 
+            Route::apiResource('', StorePosController::class);
             Route::post('authenticate', [StorePosController::class, 'authenticate']);
         });
     });
@@ -85,7 +87,7 @@ Route::prefix('app')->group(function() {
     Route::prefix('store')->group(function() {
         Route::get('{storeNo}/profile', [StoreController::class, 'profile']);
     });
-    
+
     /**
      * ERP Portal for deployed store POS
      */

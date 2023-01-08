@@ -25,8 +25,7 @@ class ProductsRepository implements IProductsRepository
 
 	public function getProducts($params)
 	{
-		$products = Product::query()->with(['categories']);
-
+		$products = Product::query()->with(['categories', 'images']);
     return $products->orderBy('id', 'DESC')->get();
 	}
 
@@ -53,9 +52,16 @@ class ProductsRepository implements IProductsRepository
 
 	}
 
+	public function getProductsImages($params)
+	{
+		$productImages = ProductImage::query();
+		return $productImages->orderBy('product_id', 'DESC')->get();
+	}
+
 	public function uploadImage($productId, $images)
 	{
 		$sku = $this->getProduct($productId)->sku;
+		$image_urls = [];
 
 		foreach ($images as $image)
 		{
@@ -64,13 +70,19 @@ class ProductsRepository implements IProductsRepository
 			$filepath = 'products/images';
 			FilesService::upload($image, $filepath, $filename, false);
 
+			$app_url = env('APP_ENV') === 'local' ? 'http://localhost:8000' : env('APP_URL');
+			$image_url = $app_url.'/storage'.'/'.$filepath.'/'.$filename;
+			array_push($image_urls, $image_url);
+
 			ProductImage::create([
 				'product_id' => $productId,
-				'url' => '/storage'.'/'.$filepath.'/'.$filename
+				'url' => 'storage'.'/'.$filepath.'/'.$filename
 			]);
 		}
+
+		return $image_urls;
 	}
-	
+
 	public function instockProduct($data)
 	{
 		return $data;
