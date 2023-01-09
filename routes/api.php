@@ -46,31 +46,27 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
      * Inventories
      */
     Route::prefix('inventories')->group(function() {
-        Route::prefix('products')->group(function() {
-            Route::apiResource('', ProductsController::class);
-            Route::apiResource('categories', ProductCategoriesController::class);
-            Route::prefix('images')->group(function() {
-                Route::get('', [ProductImagesController::class, 'index']);
-                Route::post('upload', [ProductImagesController::class, 'upload']);
-                Route::delete('{id}/delete', [ProductImagesController::class, 'destroy']);
-                Route::delete('delete-multiple', [ProductImagesController::class, 'destroyMultiple']);
-            });
-            Route::prefix('stocks')->group(function() {
-                Route::post('outstock', [ProductsController::class, 'outstock']);
-                Route::post('batch-outstock', [ProductsController::class, 'batchOutstock']);
-            });
+        Route::apiResource('products', ProductsController::class);
+        Route::apiResource('product-categories', ProductCategoriesController::class);
+        Route::prefix('product-images')->group(function() {
+            Route::get('/', [ProductImagesController::class, 'index']);
+            Route::post('upload', [ProductImagesController::class, 'upload']);
+            Route::delete('{id}/delete', [ProductImagesController::class, 'destroy']);
+            Route::delete('delete-multiple', [ProductImagesController::class, 'destroyMultiple']);
+        });
+        Route::prefix('stocks')->group(function() {
+            Route::post('outstock', [ProductsController::class, 'outstock']);
+            Route::post('batch-outstock', [ProductsController::class, 'batchOutstock']);
         });
     });
 
     /**
      * Stores/Store-Branches/Store-POS (Back Office)
      */
-    Route::prefix('stores')->group(function() {
-        Route::apiResource('', StoresController::class);
-        Route::prefix('pos')->group(function() {
-            Route::apiResource('', StorePosController::class);
-            Route::post('authenticate', [StorePosController::class, 'authenticate']);
-        });
+    Route::prefix('deployed-apps')->group(function() {
+        Route::apiResource('stores', StoresController::class);
+        Route::apiResource('pos', StorePosController::class);
+        Route::post('pos-authenticate', [StorePosController::class, 'authenticate']);
     });
 
     Route::prefix('accountings')->group(function() {

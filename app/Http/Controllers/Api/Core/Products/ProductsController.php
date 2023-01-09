@@ -98,7 +98,8 @@ class ProductsController extends Controller
     {
         try
         {
-
+            $data = $this->repository->getProduct($id);
+            return response()->json($data, 200);
         } catch (Exception $e)
         {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
@@ -112,11 +113,12 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) : JsonResponse
+    public function update(ProductRequest $request, $id) : JsonResponse
     {
         try
         {
-
+            $data = $this->repository->updateProduct($id, $request->validated());
+            return response()->json($data, 200);
         } catch (Exception $e)
         {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
@@ -133,7 +135,8 @@ class ProductsController extends Controller
     {
         try
         {
-
+            $data = $this->repository->deleteProduct($id);
+            return response()->json($data, 200);
         } catch (Exception $e)
         {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);

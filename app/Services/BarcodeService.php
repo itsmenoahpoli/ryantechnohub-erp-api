@@ -21,4 +21,9 @@ class BarcodeService
 
         return $barcode;
     }
+
+    public static function searchByBarcode($barcode)
+    {
+
+    }
 }
