@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 use App\Repositories\Interfaces\IProductsRepository;
+use App\Http\Requests\Products\ProductRequest;
 use App\Http\Requests\Products\ProductOutstockRequest;
 use App\Http\Requests\Products\ProductBatchOutstockRequest;
 
@@ -75,11 +76,12 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) : JsonResponse
+    public function store(ProductRequest $request) : JsonResponse
     {
         try
         {
-
+            $data = $this->repository->createProduct($request->validated());
+            return response()->json($data, 201);
         } catch (Exception $e)
         {
             return response()->json(['error' => true, 'message' => $e->getMessage()], 500);

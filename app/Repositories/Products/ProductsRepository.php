@@ -8,6 +8,7 @@ use App\Models\Products\Product;
 use App\Models\Products\ProductImage;
 use App\Models\Products\ProductStockLog;
 use App\Services\FilesService;
+use App\Services\BarcodeService;
 
 use Str;
 use DB;
@@ -26,7 +27,7 @@ class ProductsRepository implements IProductsRepository
 	public function getProducts($params)
 	{
 		$products = Product::query()->with(['categories', 'images']);
-    return $products->orderBy('id', 'DESC')->get();
+        return $products->orderBy('id', 'DESC')->get();
 	}
 
 	public function getProduct($productId)
@@ -37,7 +38,18 @@ class ProductsRepository implements IProductsRepository
 
 	public function createProduct($data)
 	{
-        $product = Product::create($data);
+        $product = DB::transaction(function() use ($data) {
+            $data['sku'] = 'P-'.strtoupper(Str::random(10));
+            $data['serial_no'] = strtoupper(Str::random(10));
+            $data['barcode_no'] = BarcodeService::generateBarcode();
+            $data['name_slug'] = Str::slug($data['name']);
+
+            if (!$data['is_tracked_stocks']) $data['stocks'] = NULL;
+
+            return Product::create($data);
+        });
+
+        return $product;
 	}
 
 	public function updateProduct($productId, $data)
@@ -60,27 +72,27 @@ class ProductsRepository implements IProductsRepository
 
 	public function uploadProductImage($productId, $images)
 	{
+        $app_url = env('APP_ENV') === 'local' ? 'http://localhost:8000' : env('APP_URL');
 		$sku = $this->getProduct($productId)->sku;
 		$image_urls = [];
 
 		foreach ($images as $image)
-		{
-			$extension = $image->getCLientOriginalExtension();
-			$filename = $sku.Str::random(6).'image.'.$extension;
-			$filepath = 'products/images';
-			FilesService::upload($image, $filepath, $filename, false);
+        {
+            $extension = $image->getCLientOriginalExtension();
+            $filename = $sku.Str::random(6).'image.'.$extension;
+            $filepath = 'products/images';
+            FilesService::upload($image, $filepath, $filename, false);
 
-			$app_url = env('APP_ENV') === 'local' ? 'http://localhost:8000' : env('APP_URL');
-			$image_url = $app_url.'/storage'.'/'.$filepath.'/'.$filename;
-			array_push($image_urls, $image_url);
+            $image_url = $app_url.'/storage'.'/'.$filepath.'/'.$filename;
+            array_push($image_urls, $image_url);
 
-			ProductImage::create([
-				'product_id' => $productId,
-				'url' => 'storage'.'/'.$filepath.'/'.$filename
-			]);
-		}
+            ProductImage::create([
+                'product_id' => $productId,
+                'url' => 'storage/'.$filepath.'/'.$filename
+            ]);
+        }
 
-		return $image_urls;
+        return $image_urls;
 	}
 
     public function deleteProductImage($imageId)
@@ -141,7 +153,7 @@ class ProductsRepository implements IProductsRepository
 	{
 		$outstockProducts = [];
 
-		DB::transaction(function() {
+		$result = DB::transaction(function() use ($data) {
 			foreach ($data->products as $product)
 			{
 				$this->outstockProduct([
@@ -153,6 +165,8 @@ class ProductsRepository implements IProductsRepository
 
 			return 'BATCH_OUTSTOCK_PRODUCTS_SUCCESS';
 		});
+
+        return $result;
 	}
 
 	private function recordProductStockLog($data)

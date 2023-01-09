@@ -24,8 +24,8 @@ class ProductFactory extends Factory
         $name = $this->faker->words(rand(1, 4), true).' '.Str::random(5);
 
         return [
-            'sku' => 'P-'.$this->faker->randomNumber(5, true),
-            'serial_no' => $this->faker->randomNumber(5, true),
+            'sku' => 'P-'.strtoupper(Str::random(10)),
+            'serial_no' => strtoupper(Str::random(10)),
             'barcode_no' => $this->faker->ean13(),
             'model' => $this->faker->safeHexColor(),
             'name' => $name,
