@@ -38,23 +38,23 @@ class ProductsRepository implements IProductsRepository
 
 	public function createProduct($data)
 	{
-        $product = DB::transaction(function() use ($data) {
-            $data['sku'] = 'P-'.strtoupper(Str::random(10));
-            $data['serial_no'] = strtoupper(Str::random(10));
-            $data['barcode_no'] = BarcodeService::generateBarcode();
-            $data['name_slug'] = Str::slug($data['name']);
+        $data['sku'] = 'P-'.strtoupper(Str::random(10));
+        $data['serial_no'] = strtoupper(Str::random(10));
+        $data['barcode_no'] = BarcodeService::generateBarcode();
+        $data['name_slug'] = Str::slug($data['name']);
 
-            if (!$data['is_tracked_stocks']) $data['stocks'] = NULL;
+        if (!$data['is_tracked_stocks']) $data['stocks'] = NULL;
 
-            return Product::create($data);
-        });
+        $product = Product::create($data);
 
         return $product;
 	}
 
 	public function updateProduct($productId, $data)
 	{
-		$product = $ths->getProduct($productId)->update($data);
+        if (!$data['is_tracked_stocks']) $data['stocks'] = NULL;
+
+		$product = $this->getProduct($productId)->update($data);
 		return $this->getProduct($productId);
 	}
 

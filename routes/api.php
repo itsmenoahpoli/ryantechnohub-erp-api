@@ -23,6 +23,8 @@ use App\Http\Controllers\Api\Core\Stores\StorePosController;
 
 use App\Http\Controllers\Api\Core\Accountings\AccountRemindersController;
 
+use App\Http\Controllers\Api\Core\Warehouse\WarehousePurchaseOrderSchedulesController;
+
 
 /**
  * API for warehouse dashboard & stocks portal
@@ -61,7 +63,14 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
     });
 
     /**
-     * Stores/Store-Branches/Store-POS (Back Office)
+     * Warehouse
+     */
+    Route::prefix('warehouse')->group(function() {
+        Route::apiResource('purchase-order-schedules', WarehousePurchaseOrderSchedulesController::class);
+    });
+
+    /**
+     * Stores/Store-Branches/Store-POS (Deployed Applications)
      */
     Route::prefix('deployed-apps')->group(function() {
         Route::apiResource('stores', StoresController::class);

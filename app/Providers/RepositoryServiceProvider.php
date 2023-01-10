@@ -19,6 +19,9 @@ use App\Repositories\Stores\StorePosRepository;
 use App\Repositories\Interfaces\IAccountRemindersRepository;
 use App\Repositories\Accountings\AccountRemindersRepository;
 
+use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
+use App\Repositories\Warehouse\WarehousePurchaseOrderScheduleRepository;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -51,6 +54,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IAccountRemindersRepository::class,
             AccountRemindersRepository::class
+        );
+
+        $this->app->bind(
+            IWarehousePurchaseOrderScheduleRepository::class,
+            WarehousePurchaseOrderScheduleRepository::class
         );
     }
 

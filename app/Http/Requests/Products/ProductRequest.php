@@ -28,8 +28,8 @@ class ProductRequest extends FormRequest
             case 'POST':
             case 'PATCH':
                 return [
+                    'name' => 'string|required',
                     'model' => 'string|required',
-                    'name' => 'string|required|unique:products',
                     'price' => 'numeric|required',
                     'sale_price' => 'numeric|required_if:is_onsale,true',
                     'description' => 'string|required',
@@ -37,7 +37,6 @@ class ProductRequest extends FormRequest
                     'is_tracked_stocks' => 'boolean|required',
                     'is_onsale' => 'boolean|required',
                     'is_featured' => 'boolean|required',
-                    'is_posted' => 'boolean|required',
                 ];
             default:
                 return [];
