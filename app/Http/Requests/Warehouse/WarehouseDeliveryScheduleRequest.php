@@ -23,8 +23,15 @@ class WarehouseDeliveryScheduleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method())
+        {
+            case 'PATCH':
+            case 'POST':
+                return [
+
+                ];
+            default:
+                return [];
+        }
     }
 }

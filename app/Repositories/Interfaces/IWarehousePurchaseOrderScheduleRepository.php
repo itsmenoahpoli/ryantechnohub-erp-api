@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface IWarehousePurchaseOrderSchduleRepository
+interface IWarehousePurchaseOrderScheduleRepository
 {
     public function getPurchaseOrders($params);
     public function getPurchaseOrder($purchaseOrderId);

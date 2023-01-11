@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Core\Warehouse;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonRequest;
+use Illuminate\Http\JsonResponse;
 
 use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
 use App\Http\Requests\Warehouse\WarehousePurchaseOrderScheduleRequest as PurchaseOrderRequest;
@@ -25,7 +25,7 @@ class WarehousePurchaseOrderSchedulesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) : JsonRequest
+    public function index(Request $request) : JsonResponse
     {
         try
         {
@@ -45,7 +45,7 @@ class WarehousePurchaseOrderSchedulesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PurchaseOrderRequest $request) : JsonRequest
+    public function store(PurchaseOrderRequest $request) : JsonResponse
     {
         try
         {
@@ -64,7 +64,7 @@ class WarehousePurchaseOrderSchedulesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) : JsonRequest
+    public function show($id) : JsonResponse
     {
         try
         {
@@ -84,7 +84,7 @@ class WarehousePurchaseOrderSchedulesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PurchaseOrderRequest $request, $id) : JsonRequest
+    public function update(PurchaseOrderRequest $request, $id) : JsonResponse
     {
         try
         {
@@ -103,7 +103,7 @@ class WarehousePurchaseOrderSchedulesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) : JsonRequest
+    public function destroy($id) : JsonResponse
     {
         try
         {

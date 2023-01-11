@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Warehouse;
 
 use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
 use App\Models\Warehouse\WarehousePurchaseOrderSchedule as PurchaseOrder;
@@ -36,5 +36,4 @@ class WarehousePurchaseOrderScheduleRepository implements IWarehousePurchaseOrde
         $purchaseOrder = $this->getPurchaseOrder($purchaseOrderId)->forceDelete();
         return $purchaseOrder;
     }
-
 }
