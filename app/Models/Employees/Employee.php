@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function time_entries()
+    {
+        return $this->hasMany('App\Models\Employees\EmployeeTimeEntry');
+    }
 }

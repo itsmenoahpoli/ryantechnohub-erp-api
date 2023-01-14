@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +14,5 @@ use Carbon\Carbon;
 */
 
 Route::get('/', function () {
-    return Carbon::now()->format('Ymd');
+    return time();
 });

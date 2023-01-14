@@ -22,6 +22,9 @@ use App\Repositories\Accountings\AccountRemindersRepository;
 use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
 use App\Repositories\Warehouse\WarehousePurchaseOrderScheduleRepository;
 
+use App\Repositories\Interfaces\IWarehouseDeliveryScheduleRepository;
+use App\Repositories\Warehouse\WarehouseDeliveryScheduleRepository;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -59,6 +62,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IWarehousePurchaseOrderScheduleRepository::class,
             WarehousePurchaseOrderScheduleRepository::class
+        );
+
+        $this->app->bind(
+            IWarehouseDeliveryRepository::class,
+            WarehouseDeliveryRepository::class
         );
     }
 

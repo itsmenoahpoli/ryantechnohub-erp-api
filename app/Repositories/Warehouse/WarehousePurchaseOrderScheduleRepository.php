@@ -5,6 +5,8 @@ namespace App\Repositories\Warehouse;
 use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
 use App\Models\Warehouse\WarehousePurchaseOrderSchedule as PurchaseOrder;
 
+use Str;
+
 class WarehousePurchaseOrderScheduleRepository implements IWarehousePurchaseOrderScheduleRepository
 {
     public function getPurchaseOrders($params)
@@ -21,6 +23,7 @@ class WarehousePurchaseOrderScheduleRepository implements IWarehousePurchaseOrde
 
     public function createPurchaseOrder($data)
     {
+        $data['purchase_order_no'] = 'P-'.time().strtoupper(Str::random(5));
         $purchaseOrder = PurchaseOrder::create($data);
         return $purchaseOrder;
     }

@@ -72,27 +72,31 @@ class ProductsRepository implements IProductsRepository
 
 	public function uploadProductImage($productId, $images)
 	{
-        $app_url = env('APP_ENV') === 'local' ? 'http://localhost:8000' : env('APP_URL');
-		$sku = $this->getProduct($productId)->sku;
-		$image_urls = [];
+        $result = DB::transaction(function() {
+            $app_url = env('APP_ENV') === 'local' ? 'http://localhost:8000' : env('APP_URL');
+            $sku = $this->getProduct($productId)->sku;
+            $image_urls = [];
 
-		foreach ($images as $image)
-        {
-            $extension = $image->getCLientOriginalExtension();
-            $filename = $sku.Str::random(6).'image.'.$extension;
-            $filepath = 'products/images';
-            FilesService::upload($image, $filepath, $filename, false);
+            foreach ($images as $image)
+            {
+                $extension = $image->getCLientOriginalExtension();
+                $filename = $sku.Str::random(6).'image.'.$extension;
+                $filepath = 'products/images';
+                FilesService::upload($image, $filepath, $filename, false);
 
-            $image_url = $app_url.'/storage'.'/'.$filepath.'/'.$filename;
-            array_push($image_urls, $image_url);
+                $image_url = $app_url.'/storage'.'/'.$filepath.'/'.$filename;
+                array_push($image_urls, $image_url);
 
-            ProductImage::create([
-                'product_id' => $productId,
-                'url' => 'storage/'.$filepath.'/'.$filename
-            ]);
-        }
+                ProductImage::create([
+                    'product_id' => $productId,
+                    'url' => 'storage/'.$filepath.'/'.$filename
+                ]);
+            }
 
-        return $image_urls;
+            return $image_urls;
+        });
+
+        return $result;
 	}
 
     public function deleteProductImage($imageId)

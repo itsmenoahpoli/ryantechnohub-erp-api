@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\Core\Stores\StorePosController;
 use App\Http\Controllers\Api\Core\Accountings\AccountRemindersController;
 
 use App\Http\Controllers\Api\Core\Warehouse\WarehousePurchaseOrderSchedulesController;
+use App\Http\Controllers\Api\Core\Warehouse\WarehouseDeliverySchedulesController;
 
 
 /**
@@ -67,6 +68,7 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
      */
     Route::prefix('warehouse')->group(function() {
         Route::apiResource('purchase-order-schedules', WarehousePurchaseOrderSchedulesController::class);
+        Route::apiResource('delivery-scedules', WarehouseDeliverySchedulesController::class);
     });
 
     /**
