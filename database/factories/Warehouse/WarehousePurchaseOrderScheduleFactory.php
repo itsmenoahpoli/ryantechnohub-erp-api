@@ -23,6 +23,33 @@ class WarehousePurchaseOrderScheduleFactory extends Factory
     public function definition()
     {
         $puchaseOrderNo = Carbon::now()->format('Ymd').strtoupper(Str::random(5));
+        $items = [
+            (object) [
+                'name' => 'product name',
+                'quantity' => 32,
+                'remarks' => $this->faker->sentence()
+            ],
+            (object) [
+                'name' => 'product name',
+                'quantity' => 32,
+                'remarks' => $this->faker->sentence()
+            ],
+            (object) [
+                'name' => 'product name',
+                'quantity' => 32,
+                'remarks' => $this->faker->sentence()
+            ],
+            (object) [
+                'name' => 'product name',
+                'quantity' => 32,
+                'remarks' => $this->faker->sentence()
+            ],
+            (object) [
+                'name' => 'product name',
+                'quantity' => 32,
+                'remarks' => $this->faker->sentence()
+            ],
+        ];
 
         return [
             'purchase_order_no' => $puchaseOrderNo,
@@ -37,7 +64,7 @@ class WarehousePurchaseOrderScheduleFactory extends Factory
             'ship_to_phone_no' => $this->faker->phoneNumber(),
             'ship_to_phone_no' => $this->faker->phoneNumber(),
             'ship_to_fax_no' => $this->faker->phoneNumber(),
-            'items' => json_encode([]),
+            'items' => json_encode($items),
             'shipping_method' => 'delivery-truck',
             'delivery_date' => Carbon::now()->format('Y-m-d')
         ];

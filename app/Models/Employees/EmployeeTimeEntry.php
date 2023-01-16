@@ -11,6 +11,11 @@ class EmployeeTimeEntry extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'sign_in_datetime' => 'datetime',
+        'sign_out_datetime' => 'datetime'
+    ];
+
     public function employee()
     {
         return $this->belongsTo('App\Models\Employees\Employee');

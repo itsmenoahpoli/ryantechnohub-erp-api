@@ -68,7 +68,7 @@ Route::prefix('core')->middleware(['verify.secret-api-key'])->group(function() {
      */
     Route::prefix('warehouse')->group(function() {
         Route::apiResource('purchase-order-schedules', WarehousePurchaseOrderSchedulesController::class);
-        Route::apiResource('delivery-scedules', WarehouseDeliverySchedulesController::class);
+        Route::apiResource('delivery-schedules', WarehouseDeliverySchedulesController::class);
     });
 
     /**

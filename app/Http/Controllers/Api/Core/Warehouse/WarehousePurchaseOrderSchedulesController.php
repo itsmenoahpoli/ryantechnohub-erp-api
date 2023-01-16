@@ -6,15 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
+use App\Repositories\Interfaces\IWarehousePurchaseOrderSchedulesRepository;
 use App\Http\Requests\Warehouse\WarehousePurchaseOrderScheduleRequest as PurchaseOrderRequest;
 
 class WarehousePurchaseOrderSchedulesController extends Controller
 {
-    private IWarehousePurchaseOrderScheduleRepository $repository;
+    private IWarehousePurchaseOrderSchedulesRepository $repository;
 
     public function __construct(
-        IWarehousePurchaseOrderScheduleRepository $repository
+        IWarehousePurchaseOrderSchedulesRepository $repository
     )
     {
         $this->repository = $repository;

@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Warehouse;
 
-use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
+use App\Repositories\Interfaces\IWarehousePurchaseOrderSchedulesRepository;
 use App\Models\Warehouse\WarehousePurchaseOrderSchedule as PurchaseOrder;
 
 use Str;
 
-class WarehousePurchaseOrderScheduleRepository implements IWarehousePurchaseOrderScheduleRepository
+class WarehousePurchaseOrderSchedulesRepository implements IWarehousePurchaseOrderSchedulesRepository
 {
     public function getPurchaseOrders($params)
     {

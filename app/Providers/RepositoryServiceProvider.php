@@ -19,11 +19,11 @@ use App\Repositories\Stores\StorePosRepository;
 use App\Repositories\Interfaces\IAccountRemindersRepository;
 use App\Repositories\Accountings\AccountRemindersRepository;
 
-use App\Repositories\Interfaces\IWarehousePurchaseOrderScheduleRepository;
-use App\Repositories\Warehouse\WarehousePurchaseOrderScheduleRepository;
+use App\Repositories\Interfaces\IWarehousePurchaseOrderSchedulesRepository;
+use App\Repositories\Warehouse\WarehousePurchaseOrderSchedulesRepository;
 
-use App\Repositories\Interfaces\IWarehouseDeliveryScheduleRepository;
-use App\Repositories\Warehouse\WarehouseDeliveryScheduleRepository;
+use App\Repositories\Interfaces\IWarehouseDeliverySchedulesRepository;
+use App\Repositories\Warehouse\WarehouseDeliverySchedulesRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -60,13 +60,13 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            IWarehousePurchaseOrderScheduleRepository::class,
-            WarehousePurchaseOrderScheduleRepository::class
+            IWarehousePurchaseOrderSchedulesRepository::class,
+            WarehousePurchaseOrderSchedulesRepository::class
         );
 
         $this->app->bind(
-            IWarehouseDeliveryRepository::class,
-            WarehouseDeliveryRepository::class
+            IWarehouseDeliverySchedulesRepository::class,
+            WarehouseDeliverySchedulesRepository::class
         );
     }
 
