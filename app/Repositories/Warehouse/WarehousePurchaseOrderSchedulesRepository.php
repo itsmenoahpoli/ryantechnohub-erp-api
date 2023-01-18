@@ -21,6 +21,12 @@ class WarehousePurchaseOrderSchedulesRepository implements IWarehousePurchaseOrd
         return $purchaseOrder;
     }
 
+    public function getPurchaseOrderByNo($purchaseOrderNo)
+    {
+        $purchaseOrderNo = PurchaseOrder::where('purchaseOrderNo', $purchaseOrderNo)->first();
+        return $purchaseOrderNo;
+    }
+
     public function createPurchaseOrder($data)
     {
         $data['purchase_order_no'] = 'P-'.time().strtoupper(Str::random(5));

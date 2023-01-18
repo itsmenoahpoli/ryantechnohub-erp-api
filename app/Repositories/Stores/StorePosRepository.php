@@ -41,5 +41,4 @@ class StorePosRepository implements IStorePosRepository
 
         return $pos;
     }
-    
 }

@@ -25,6 +25,9 @@ use App\Repositories\Warehouse\WarehousePurchaseOrderSchedulesRepository;
 use App\Repositories\Interfaces\IWarehouseDeliverySchedulesRepository;
 use App\Repositories\Warehouse\WarehouseDeliverySchedulesRepository;
 
+use App\Repositories\Interfaces\IEmployeesRepository;
+use App\Repositories\Employees\EmployeesRepository;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -67,6 +70,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IWarehouseDeliverySchedulesRepository::class,
             WarehouseDeliverySchedulesRepository::class
+        );
+
+        $this->app->bind(
+            IEmployeesRepository::class,
+            EmployeesRepository::class
         );
     }
 

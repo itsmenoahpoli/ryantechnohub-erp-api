@@ -45,12 +45,12 @@ class StorePosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)  : JsonResponse
-    {    
+    {
         try
         {
             $params = $request->query();
             $data = $this->repository->getAllPOS($params);
-            
+
             return response()->json($data, 200);
         } catch (Exception $e)
         {
@@ -65,7 +65,7 @@ class StorePosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StorePosRequest $request)  : JsonResponse
-    {    
+    {
         try
         {
             $data = $this->repository->createPos($request->validated());
@@ -83,7 +83,7 @@ class StorePosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)  : JsonResponse
-    {    
+    {
         try
         {
 
@@ -101,7 +101,7 @@ class StorePosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StorePosRequest $request, $id)  : JsonResponse
-    {    
+    {
         try
         {
 
@@ -118,7 +118,7 @@ class StorePosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)  : JsonResponse
-    {    
+    {
         try
         {
 
